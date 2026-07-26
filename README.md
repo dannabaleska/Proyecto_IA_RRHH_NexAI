@@ -9,6 +9,8 @@ Proyecto final del Semillero de Inteligencia Artificial. Prototipo funcional (no
 - Alvarez Salazar Danna Baleska
 - López Reyes Danna Julexy
 
+**Video de demostración:** https://drive.google.com/file/d/142gxVgpLOOs5ChVA_RIUgWCik3d7W7Jb/view?usp=sharing
+
 ---
 
 ## Tabla de contenidos
