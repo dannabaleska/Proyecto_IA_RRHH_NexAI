@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexAI · Asistente RR. HH. — Patito S.A.</title>
+<link rel="icon" type="image/png" href="/static/img/Logo_NexAI_.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+<!-- Librería Marked para renderizar Markdown -->
+<script src="/static/vendor/marked.min.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <img src="/static/img/Logo_NexAI.png" alt="NexAI" class="logo-img logo-img-header">
+    <div class="brand-text">
+      <p class="eyebrow">NexAI · Patito S.A.</p>
+      <h1>Asistente Virtual de Recursos Humanos</h1>
+      <p class="subtitle">Consulta políticas, beneficios, reclutamiento y registra solicitudes de RR. HH.</p>
+    </div>
+  </div>
+  <button id="btn-reiniciar" class="btn-ghost" type="button">Reiniciar conversación</button>
+</header>
+
+<div class="app-body">
+
+  <aside class="sidebar">
+
+    <section class="sidebar-section">
+      <details id="acordeon-solicitudes" class="solicitudes-acordeon">
+        <summary>Solicitudes registradas</summary>
+        <div id="solicitudes-contenido" class="solicitudes-contenido">
+          <p class="solicitudes-vacio">Cargando…</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="sidebar-section">
+      <p class="sidebar-titulo">Módulos principales</p>
+      <ul class="modulos-lista">
+        <li class="modulo-item">
+          <span class="modulo-icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M3 12h18"/><path d="M12 8v13"/><path d="M12 8c-1.8 0-3.2-1.3-3.2-3S10.2 2 12 3.5C13.8 2 15.2 2.7 15.2 4.5S13.8 8 12 8z"/></svg>
+          </span>
+          Beneficios y Compensaciones
+        </li>
+        <li class="modulo-item">
+          <span class="modulo-icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg>
+          </span>
+          Vacaciones y Permisos
+        </li>
+        <li class="modulo-item">
+          <span class="modulo-icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/><circle cx="18" cy="8" r="2.5"/><path d="M16.5 14.2c2.6.5 4.5 2.6 4.5 5.3"/></svg>
+          </span>
+          Reclutamiento y Onboarding
+        </li>
+        <li class="modulo-item">
+          <span class="modulo-icono" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6z"/><path d="M12 8v5"/><circle cx="12" cy="15.6" r="0.6" fill="currentColor" stroke="none"/></svg>
+          </span>
+          Políticas Internas
+        </li>
+      </ul>
+    </section>
+
+    <section class="sidebar-section">
+      <p class="sidebar-titulo">Estado del sistema</p>
+      <ul class="estado-lista">
+        <li class="estado-item">
+          <span class="estado-punto" aria-hidden="true"></span>
+          <span class="estado-texto">
+            <strong>API conectada</strong>
+            <span>Estado: Operativo</span>
+          </span>
+        </li>
+        <li class="estado-item">
+          <span class="estado-punto" aria-hidden="true"></span>
+          <span class="estado-texto">
+            <strong>Modelo IA (Gemini)</strong>
+            <span>Estado: Activo</span>
+          </span>
+        </li>
+        <li class="estado-item">
+          <span class="estado-punto" aria-hidden="true"></span>
+          <span class="estado-texto">
+            <strong>Base de conocimiento</strong>
+            <span>Estado: Actualizada</span>
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <div class="ayuda-card">
+      <span class="ayuda-icono" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="8" r="0.6" fill="currentColor" stroke="none"/></svg>
+      </span>
+      <div>
+        <p class="ayuda-titulo">¿Necesitas ayuda?</p>
+        <p class="ayuda-texto">Estoy aquí para apoyarte. Pregunta lo que necesites.</p>
+      </div>
+    </div>
+  </aside>
+
+  <main class="chat-shell">
+    <div id="chat-log" class="chat-log" aria-live="polite">
+      <div class="chat-log-inner">
+        <div class="msg msg-bot">
+          <img src="/static/img/Avatar_asistente_virtual.png" alt="" class="logo-img logo-img-avatar logo-img-sm">
+          <div class="msg-bubble">
+            <p>Hola, soy el asistente de RR. HH. de Patito S.A., desarrollado por NexAI. Puedo responder preguntas sobre beneficios, políticas internas y reclutamiento/onboarding, o registrar una solicitud de vacaciones o inscripción de dependiente. ¿En qué te ayudo?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="indicador-espera" class="waiting" hidden aria-hidden="true">
+      <div class="waiting-inner">
+        <img src="/static/img/Avatar_asistente_virtual.png" alt="" class="logo-img logo-img-avatar logo-img-sm">
+        <span class="paw"></span><span class="paw"></span><span class="paw"></span>
+        <span class="waiting-label">Analizando tu consulta…</span>
+      </div>
+    </div>
+
+    <form id="form-chat" class="composer" autocomplete="off">
+      <div class="composer-inner">
+        <label for="input-pregunta" class="sr-only">Escribe tu pregunta</label>
+        <textarea
+          id="input-pregunta"
+          name="pregunta"
+          rows="1"
+          placeholder="Escribe tu pregunta o pide registrar una solicitud…"
+          required></textarea>
+        <button type="submit" class="btn-enviar">Enviar</button>
+      </div>
+    </form>
+  </main>
+
+</div>
+
+<template id="tpl-mensaje-usuario">
+  <div class="msg msg-user">
+    <div class="msg-bubble"><p></p></div>
+    <img src="/static/img/Avatar_usuario.png" alt="" class="logo-img logo-img-avatar">
+  </div>
+</template>
+
+<template id="tpl-mensaje-bot">
+  <div class="msg msg-bot">
+    <img src="/static/img/Avatar_asistente_virtual.png" alt="" class="logo-img logo-img-avatar logo-img-sm">
+    <div class="msg-bubble">
+      <div class="msg-texto"></div>
+      <details class="detalle-fuentes" hidden>
+        <summary>Información utilizada</summary>
+        <div class="detalle-contenido">
+          <p class="detalle-etiqueta">Agentes participantes</p>
+          <div class="agentes-lista"></div>
+          <p class="detalle-etiqueta detalle-etiqueta-fuentes">Fuentes consultadas</p>
+          <ol class="fuentes-lista"></ol>
+        </div>
+      </details>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-mensaje-error">
+  <div class="msg msg-bot msg-error">
+    <div class="logo-placeholder logo-placeholder-avatar logo-placeholder-error" aria-hidden="true">!</div>
+    <div class="msg-bubble"><p></p></div>
+  </div>
+</template>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
